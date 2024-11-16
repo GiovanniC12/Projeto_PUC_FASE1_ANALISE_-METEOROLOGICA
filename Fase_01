@@ -1,0 +1,49 @@
+def obter_mes_extenso(mes_numero):
+    meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+             "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    return meses[mes_numero - 1]
+
+def obter_numero(mensagem, limite_inferior, limite_superior):
+    while True:
+        try:
+            valor = int(input(mensagem))
+            if limite_inferior <= valor <= limite_superior:
+                return valor
+            else:
+                print(f"Erro: o valor deve estar entre {limite_inferior} e {limite_superior}.")
+        except ValueError:
+            print("Erro: valor inválido. Digite um número inteiro.")
+
+def obter_temperatura(mensagem):
+    while True:
+        try:
+            valor = float(input(mensagem))
+            if -60 <= valor <= 50:
+                return valor
+            else:
+                print("Erro: a temperatura deve estar entre -60 e 50 graus Celsius.")
+        except ValueError:
+            print("Erro: valor inválido. Digite um número.")
+
+def main():
+    temperaturas_maximas = []
+    
+    for mes in range(1, 13):
+        print(f"\nMês: {obter_mes_extenso(mes).capitalize()}")
+        temp_max = obter_temperatura("Informe a temperatura máxima do mês (em °C): ")
+        temperaturas_maximas.append(temp_max)
+
+    # Cálculos e exibições
+    media_temperatura_maxima = sum(temperaturas_maximas) / len(temperaturas_maximas)
+    meses_escaldantes = sum(1 for temp in temperaturas_maximas if temp > 33)
+    mes_mais_escaldante = temperaturas_maximas.index(max(temperaturas_maximas)) + 1
+    mes_menos_quente = temperaturas_maximas.index(min(temperaturas_maximas)) + 1
+    
+    print("\nResultados:")
+    print(f"Temperatura média máxima anual: {media_temperatura_maxima:.2f} °C")
+    print(f"Quantidade de meses escaldantes (temperatura máxima > 33°C): {meses_escaldantes}")
+    print(f"Mês mais escaldante do ano: {obter_mes_extenso(mes_mais_escaldante).capitalize()} com {max(temperaturas_maximas)} °C")
+    print(f"Mês menos quente do ano: {obter_mes_extenso(mes_menos_quente).capitalize()} com {min(temperaturas_maximas)} °C")
+
+if __name__ == "__main__":
+    main()
